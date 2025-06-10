@@ -1,0 +1,8 @@
+[package]
+name = "periodic-table"
+version = "0.1.0"
+edition = "2025"
+
+
+[dependencies]
+# This project doesn't require any external dependencies for now
