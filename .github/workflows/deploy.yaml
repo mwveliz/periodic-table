@@ -32,9 +32,15 @@ jobs:
         run: ./target/release/periodic-table # Ensure this matches your built executable name
         working-directory: /home/runner/work/periodic-table/periodic-table
 
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: /home/runner/work/periodic-table/periodic-table
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          deploy_branch: gh-pages # Or your desired deployment branch
-          folder: /home/runner/work/periodic-table/periodic-table # Ensure the deploy folder matches
+          # The deploy_branch and folder are no longer directly used by this action in v4
+          # as it expects the artifact.
