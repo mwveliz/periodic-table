@@ -7,8 +7,8 @@ on:
     branches: [ "main" ]
 
 permissions:
-  pages: write      # Required to deploy to GitHub Pages
-  id-token: write   # Required for the deployment action to authenticate
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -36,11 +36,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
-          path: /home/runner/work/periodic-table/periodic-table
+          path: /home/runner/work/periodic-table/periodic-table/index.html
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # The deploy_branch and folder are no longer directly used by this action in v4
-          # as it expects the artifact.
