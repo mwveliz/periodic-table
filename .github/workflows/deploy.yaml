@@ -35,10 +35,11 @@ jobs:
       - name: Upload GitHub Pages artifact
         uses: actions/upload-artifact@v4
         with:
-          name: github-pages
+          name: periodic-table
           path: /home/runner/work/periodic-table/periodic-table/index.html
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: periodic-table # Update the artifact name here as well
