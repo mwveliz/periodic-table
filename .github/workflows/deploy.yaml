@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  pages: write      # Required to deploy to GitHub Pages
+  id-token: write   # Required for the deployment action to authenticate
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -22,15 +26,15 @@ jobs:
 
       - name: Build Rust project
         run: cargo build --release
-        working-directory: . # This line ensures the command runs in the root of your repository
+        working-directory: /home/runner/work/periodic-table/periodic-table
 
       - name: Generate index.html
-        run: ./target/release/periodic-table
-        working-directory: . # It's a good practice to specify the working directory here as well
+        run: ./target/release/periodic-table # Ensure this matches your built executable name
+        working-directory: /home/runner/work/periodic-table/periodic-table
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           deploy_branch: gh-pages # Or your desired deployment branch
-          folder: .        # The index.html is generated in the root
+          folder: /home/runner/work/periodic-table/periodic-table # Ensure the deploy folder matches
