@@ -1,8 +1,13 @@
 [package]
 name = "periodic-table"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 # This project doesn't require any external dependencies for now
+
+[[bin]]
+name = "periodic-table" # The name of the executable Cargo will build
+path = "generate_table.rs" # The path to your main Rust file
