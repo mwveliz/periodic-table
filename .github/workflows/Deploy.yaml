@@ -1,0 +1,34 @@
+name: Deploy Periodic Table
+
+on:
+  push:
+    branches: [ "main" ] # Or your main branch name
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build Rust project
+        run: cargo build --release
+
+      - name: Generate index.html
+        run: ./target/release/generate_table # Assuming your binary is named 'generate_table'
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_branch: gh-pages # Or your desired deployment branch
+          folder: .        # The index.html is generated in the root
